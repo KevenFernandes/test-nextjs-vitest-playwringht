@@ -1,0 +1,47 @@
+import {
+  CreateTodoAction,
+  DeleteTodoAction,
+} from '@/core/todo/actions/todo.actions.types';
+import { fn } from 'storybook/test';
+
+export const todoActionStoryMock = {
+  create: {
+    success: fn(async () => {
+      return {
+        success: true,
+        todo: { id: 'id', description: 'desc', createdAt: 'data' },
+      };
+    }) as CreateTodoAction,
+
+    error: fn(async () => {
+      return {
+        success: false,
+        errors: ['Erro ao criar a tarefa'],
+      };
+    }) as CreateTodoAction,
+  },
+
+  delete: {
+    success: fn(async () => {
+      return {
+        success: true,
+        todo: { id: 'id', description: 'desc', createdAt: 'data' },
+      };
+    }) as DeleteTodoAction,
+
+    error: fn(async () => {
+      return {
+        success: false,
+        errors: ['Falha ao deletar todo'],
+      };
+    }) as DeleteTodoAction,
+
+    delayed: fn(async () => {
+      await new Promise(r => setTimeout(r, 2000));
+      return {
+        success: true,
+        todo: { id: 'id', description: 'desc', createdAt: 'data' },
+      };
+    }) as DeleteTodoAction,
+  },
+};
